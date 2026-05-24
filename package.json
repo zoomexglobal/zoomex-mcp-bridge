@@ -1,0 +1,46 @@
+{
+  "name": "zoomex-mcp-server",
+  "version": "0.1.0",
+  "description": "stdio MCP bridge for Zoomex: injects ZOOMEX_* env into tools/call and proxies to Spring Boot Streamable HTTP backend",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "zoomex-mcp-server": "dist/index.js"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "test": "node --test tests/credentials.test.mjs",
+    "prepublishOnly": "npm run build"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "mcp",
+    "zoomex",
+    "cursor",
+    "model-context-protocol"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "^5.7.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zoomexglobal/zoomex-mcp-bridge.git",
+    "directory": "zoomex-mcp-bridge"
+  },
+  "homepage": "https://github.com/zoomexglobal/zoomex-mcp-bridge/tree/main/zoomex-mcp-bridge#readme",
+  "publishConfig": {
+    "access": "public"
+  }
+}
