@@ -49,3 +49,21 @@
 zoomex-mcp-server --modules all
 zoomex-mcp-server --modules all --url http://127.0.0.1:8080/mcp
 ```
+
+## 构建
+
+```bash
+npm install
+npm run build
+```
+
+若 `npm run build` 报错 `Cannot find module '../lib/tsc.js'`，说明 `node_modules/.bin/tsc` 不是符号链接（常见于拷贝 `node_modules` 未保留链接）。请在本目录执行：
+
+```bash
+rm -rf node_modules
+npm install
+```
+
+## 许可证
+
+本项目采用 [MIT License](LICENSE)。

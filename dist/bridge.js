@@ -6,6 +6,7 @@ import { StreamableHTTPClientTransport } from "@modelcontextprotocol/sdk/client/
 import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { CallToolRequestSchema, InitializeRequestSchema, ListToolsRequestSchema, } from "@modelcontextprotocol/sdk/types.js";
+import { assertSafeBackendUrl, BackendUrlGuardError, } from "./backendUrlGuard.js";
 import { hasPassphraseAuthEnv, injectCredentials, readCredentialEnv, } from "./credentials.js";
 function log(msg) {
     process.stderr.write(`[zoomex-mcp-server] ${msg}\n`);
@@ -20,7 +21,18 @@ export async function startBridge(config) {
             "private tools will fail AUTH until env is configured in Cursor mcp.json.");
     }
     log(`backend=${config.backendUrl} modules=${config.modules}`);
-    const httpTransport = new StreamableHTTPClientTransport(new URL(config.backendUrl));
+    let backendUrl;
+    try {
+        backendUrl = assertSafeBackendUrl(config.backendUrl);
+    }
+    catch (err) {
+        const detail = err instanceof BackendUrlGuardError
+            ? err.message
+            : formatError(err);
+        log(`ERROR: unsafe backend URL — ${detail}`);
+        process.exit(1);
+    }
+    const httpTransport = new StreamableHTTPClientTransport(backendUrl);
     const client = new Client({ name: "zoomex-mcp-bridge", version: "0.1.0" }, { capabilities: {} });
     try {
         await client.connect(httpTransport);

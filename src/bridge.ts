@@ -12,6 +12,10 @@ import {
   ListToolsRequestSchema,
 } from "@modelcontextprotocol/sdk/types.js";
 
+import {
+  assertSafeBackendUrl,
+  BackendUrlGuardError,
+} from "./backendUrlGuard.js";
 import type { BridgeConfig } from "./config.js";
 import {
   hasPassphraseAuthEnv,
@@ -37,9 +41,19 @@ export async function startBridge(config: BridgeConfig): Promise<void> {
 
   log(`backend=${config.backendUrl} modules=${config.modules}`);
 
-  const httpTransport = new StreamableHTTPClientTransport(
-    new URL(config.backendUrl)
-  );
+  let backendUrl: URL;
+  try {
+    backendUrl = assertSafeBackendUrl(config.backendUrl);
+  } catch (err) {
+    const detail =
+      err instanceof BackendUrlGuardError
+        ? err.message
+        : formatError(err);
+    log(`ERROR: unsafe backend URL — ${detail}`);
+    process.exit(1);
+  }
+
+  const httpTransport = new StreamableHTTPClientTransport(backendUrl);
   const client = new Client(
     { name: "zoomex-mcp-bridge", version: "0.1.0" },
     { capabilities: {} }
