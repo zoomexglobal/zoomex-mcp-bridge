@@ -37,6 +37,12 @@ export async function startBridge(config: BridgeConfig): Promise<void> {
       "WARN: ZOOMEX_API_KEY or ZOOMEX_PASSPHRASE not set — public market tools may work; " +
         "private tools will fail AUTH until env is configured in Cursor mcp.json."
     );
+  } else {
+    log(
+      `credentials from env: apiKey=${credentialEnv.apiKey ? "set" : "missing"}, ` +
+        `apiSecret=${credentialEnv.apiSecret ? "set" : "missing"}, ` +
+        `passphrase=${credentialEnv.passphrase ? "set" : "missing"}`
+    );
   }
 
   log(`backend=${config.backendUrl} modules=${config.modules}`);

@@ -2,18 +2,6 @@
 
 在 Cursor 里用 `command` + `npx` + `env` 三件套接入 Zoomex MCP，**无需在对话里手写 credentials**。
 
-桥接进程通过 stdio 与 Cursor 通信，将 `tools/call` 转发到本地 Java Spring Boot MCP，并自动注入：
-
-```json
-{
-  "credentials": {
-    "apiKey": "<ZOOMEX_API_KEY>",
-    "apiSecret": "<ZOOMEX_SECRET_KEY>",
-    "passphrase": "<ZOOMEX_PASSPHRASE>"
-  }
-}
-```
-
 ## Cursor 配置
 
 ### mcp配置（npm）
@@ -23,7 +11,7 @@
   "mcpServers": {
     "zoomex": {
       "command": "npx",
-      "args": ["-y", "zoomex-mcp-server@0.1.0", "--modules", "all"],
+      "args": ["-y", "zoomex-mcp-server@0.1.1", "--modules", "all"],
       "env": {
         "ZOOMEX_API_KEY": "你的key",
         "ZOOMEX_SECRET_KEY": "你的secret",
@@ -41,28 +29,7 @@
 | `ZOOMEX_API_KEY` | API Key |
 | `ZOOMEX_SECRET_KEY` | API Secret（出站 Zoomex 签名） |
 | `ZOOMEX_PASSPHRASE` | API 口令（MCP 入站鉴权） |
-| `ZOOMEX_MCP_URL` | 可选，默认 `http://127.0.0.1:8080/mcp` |
-
-## CLI
-
-```bash
-zoomex-mcp-server --modules all
-zoomex-mcp-server --modules all --url http://127.0.0.1:8080/mcp
-```
-
-## 构建
-
-```bash
-npm install
-npm run build
-```
-
-若 `npm run build` 报错 `Cannot find module '../lib/tsc.js'`，说明 `node_modules/.bin/tsc` 不是符号链接（常见于拷贝 `node_modules` 未保留链接）。请在本目录执行：
-
-```bash
-rm -rf node_modules
-npm install
-```
+| `ZOOMEX_MCP_URL` | 可选，默认 `http://127.0.0.1:8080/mcp`；远程须 `https://` |
 
 ## 许可证
 
