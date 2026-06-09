@@ -1,36 +1,50 @@
-# zoomex-mcp-server（stdio 桥接）
+# zoomex-mcp-server
 
-在 Cursor 里用 `command` + `npx` + `env` 三件套接入 Zoomex MCP，**无需在对话里手写 credentials**。
+An MCP (Model Context Protocol) stdio bridge for Zoomex. Enables AI tools that support MCP — such as Cursor, Claude Desktop, and other MCP-compatible clients — to interact with the Zoomex trading platform using natural language, with credentials injected automatically via environment variables.
 
-## Cursor 配置
+## Quick Start
 
-### mcp配置（npm）
+Configure your MCP-compatible AI tool to launch this server via `npx`:
 
 ```json
 {
   "mcpServers": {
     "zoomex": {
       "command": "npx",
-      "args": ["-y", "zoomex-mcp-server@0.1.1", "--modules", "all"],
+      "args": ["-y", "zoomex-mcp-server", "--modules", "all"],
       "env": {
-        "ZOOMEX_API_KEY": "你的key",
-        "ZOOMEX_SECRET_KEY": "你的secret",
-        "ZOOMEX_PASSPHRASE": "你的口令"
+        "ZOOMEX_API_KEY": "<your-api-key>",
+        "ZOOMEX_SECRET_KEY": "<your-api-secret>",
+        "ZOOMEX_PASSPHRASE": "<your-passphrase>"
       }
     }
   }
 }
 ```
 
-## 环境变量
+> **Testnet:** Add `"ZOOMEX_MCP_URL": "https://api2-testnet.zoomex.com/mcp"` to `env` to connect to the Zoomex testnet.
 
-| 变量 | 说明 |
-|------|------|
-| `ZOOMEX_API_KEY` | API Key |
-| `ZOOMEX_SECRET_KEY` | API Secret（出站 Zoomex 签名） |
-| `ZOOMEX_PASSPHRASE` | API 口令（MCP 入站鉴权） |
-| `ZOOMEX_MCP_URL` | 可选，默认 `http://127.0.0.1:8080/mcp`；远程须 `https://` |
+## Environment Variables
 
-## 许可证
+| Variable | Description |
+|---|---|
+| `ZOOMEX_API_KEY` | Your Zoomex API Key |
+| `ZOOMEX_SECRET_KEY` | Your Zoomex API Secret |
+| `ZOOMEX_PASSPHRASE` | Your Zoomex API Passphrase |
+| `ZOOMEX_MCP_URL` | _(Optional)_ MCP backend URL. Defaults to `https://api2-testnet.zoomex.com/mcp` |
 
-本项目采用 [MIT License](LICENSE)。
+## CLI Options
+
+| Option | Description |
+|---|---|
+| `--modules <value>` | Tool modules to load (default: `all`) |
+| `--url <url>` | Override the MCP backend URL |
+
+## Requirements
+
+- Node.js >= 18
+- A valid Zoomex API Key with appropriate permissions
+
+## License
+
+[MIT](LICENSE)
