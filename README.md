@@ -22,8 +22,6 @@ Configure your MCP-compatible AI tool to launch this server via `npx`:
 }
 ```
 
-> **Testnet:** Add `"ZOOMEX_MCP_URL": "https://api2-testnet.zoomex.com/mcp"` to `env` to connect to the Zoomex testnet.
-
 ## Environment Variables
 
 | Variable | Description |
@@ -31,7 +29,7 @@ Configure your MCP-compatible AI tool to launch this server via `npx`:
 | `ZOOMEX_API_KEY` | Your Zoomex API Key |
 | `ZOOMEX_SECRET_KEY` | Your Zoomex API Secret |
 | `ZOOMEX_PASSPHRASE` | Your Zoomex API Passphrase |
-| `ZOOMEX_MCP_URL` | _(Optional)_ MCP backend URL. Defaults to `https://api2-testnet.zoomex.com/mcp` |
+| `ZOOMEX_MCP_URL` | _(Optional)_ Override the MCP backend URL |
 
 ## CLI Options
 
