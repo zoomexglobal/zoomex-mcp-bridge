@@ -9,7 +9,7 @@ export interface BridgeConfig {
   modules: string;
 }
 
-const DEFAULT_BACKEND = "https://api2-testnet.zoomex.com/mcp";
+const DEFAULT_BACKEND = "https://api2.zoomex.com/mcp";
 
 export function parseArgs(argv: string[]): BridgeConfig {
   let modules = "all";

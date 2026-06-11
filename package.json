@@ -1,6 +1,6 @@
 {
   "name": "zoomex-mcp-server",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "stdio MCP bridge for Zoomex: injects ZOOMEX_* env into tools/call and proxies to Spring Boot Streamable HTTP backend",
   "type": "module",
   "main": "dist/index.js",

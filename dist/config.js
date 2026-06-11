@@ -1,7 +1,7 @@
 /**
  * CLI 与环境变量解析。
  */
-const DEFAULT_BACKEND = "https://api2-testnet.zoomex.com/mcp";
+const DEFAULT_BACKEND = "https://api2.zoomex.com/mcp";
 export function parseArgs(argv) {
     let modules = "all";
     let backendUrl = trim(process.env.ZOOMEX_MCP_URL) ?? DEFAULT_BACKEND;
